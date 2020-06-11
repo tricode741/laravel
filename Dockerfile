@@ -3,6 +3,11 @@ FROM php:fpm
 # Install composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
+# INstall GIT
+RUN apt-get update && \
+    apt-get upgrade -y && \
+    apt-get install -y git
+
 # Clone laravel src
 RUN git clone https://github.com/laravel/laravel.git
 
