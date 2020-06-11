@@ -11,7 +11,7 @@ RUN apt-get update && \
 # Clone laravel src
 RUN git clone https://github.com/laravel/laravel.git
 
-RUN composer install
+RUN cd laravel && composer install
 
 # Copy composer.lock and composer.json
 COPY composer.lock composer.json /var/www/
