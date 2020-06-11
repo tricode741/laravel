@@ -6,7 +6,7 @@ RUN git clone https://github.com/laravel/laravel.git
 RUN composer install
 
 # Copy composer.lock and composer.json
-#COPY composer.lock composer.json /var/www/
+COPY composer.lock composer.json /var/www/
 
 # Set working directory
 WORKDIR /var/www
