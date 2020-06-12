@@ -57,7 +57,7 @@ RUN useradd -u 1000 -ms /bin/bash -g www www
 RUN chown -R www:www /var/www
 
 # Change current user to www
-USER www
+#USER www
 
 RUN apt-get update \
     && apt-get -y install wget \
