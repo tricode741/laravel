@@ -3,31 +3,35 @@ services:
 
   #PHP Service
   app:
-    image: lanntxyz/laravel
-    container_name: app
-    restart: unless-stopped
-    tty: true
+    image: lanntxyz/laravel-nginx
+    container_name: appserver
+    restart: always
+    ports:
+      - "80:80"
+      - "443:443"
     environment:
       SERVICE_NAME: app
       SERVICE_TAGS: dev
     volumes:
-      - ./app:/var/www
       - ./php/local.ini:/usr/local/etc/php/conf.d/local.ini
+      - ./nginx/conf.d/app.conf:/etc/nginx/conf.d/default.conf
     networks:
       - app-network
 
-  #Nginx Service
-  webserver:
-    image: nginx:alpine
-    container_name: webserver
-    restart: unless-stopped
-    tty: true
+  #MySQL Service
+  db:
+    image: mysql:5.7.22
+    container_name: db
+    restart: always
     ports:
-      - "80:80"
-      - "443:443"
+      - "3306:3306"
+    environment:
+      MYSQL_DATABASE: laravel
+      MYSQL_ROOT_PASSWORD: your_mysql_root_password
+      SERVICE_TAGS: dev
+      SERVICE_NAME: mysql
     volumes:
-      - ./app:/var/www
-      - ./nginx/conf.d/:/etc/nginx/conf.d/
+      - dbdata:/var/lib/mysql/
     networks:
       - app-network
 
@@ -35,3 +39,7 @@ services:
 networks:
   app-network:
     driver: bridge
+#Volumes
+volumes:
+  dbdata:
+    driver: local
