@@ -81,4 +81,4 @@ RUN apt-get update; apt-get -y install nginx
 
 # Expose port 9000 and start php-fpm server
 EXPOSE 80
-CMD ["sh", "-c", "php-fpm -D && nginx -g daemon off;"]
+CMD ["sh", "-c", "php-fpm -D && nginx -g 'daemon off;'"]
