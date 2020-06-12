@@ -40,7 +40,7 @@ RUN docker-php-ext-install pdo_mysql mbstring zip exif pcntl
 RUN docker-php-ext-configure gd \
     --with-png=/usr/include/ \
     --with-jpeg=/usr/include/ \
-    --with-freetype=/usr/include/ \
+    --with-freetype=/usr/include/
 
 RUN docker-php-ext-install gd
 
