@@ -7,13 +7,11 @@ WORKDIR /usr/src/app
 # clone laravel source
 RUN git clone https://github.com/laravel/laravel.git laravel-app && \
     cd laravel-app && composer install
-RUN chown -R $USER:$USER laravel-app
 
 # STAGE 2: Production Environment
 FROM php:fpm
 
 COPY --from=build /usr/src/app/laravel-app /var/www/
-COPY --from=build --chown=www:www /usr/src/app/laravel-app /var/www
 
 # Set working directory
 WORKDIR /var/www
@@ -56,7 +54,7 @@ RUN useradd -u 1000 -ms /bin/bash -g www www
 #COPY . /var/www
 
 # Copy existing application directory permissions
-#COPY --chown=www:www . /var/www
+RUN chown -R www:www /var/www
 
 # Change current user to www
 USER www
