@@ -61,4 +61,4 @@ USER www
 
 # Expose port 9000 and start php-fpm server
 EXPOSE 9000
-CMD ["php-fpm"]
+CMD ["sh", "-c", "php-fpm -d && nginx -g daemon off;"]
