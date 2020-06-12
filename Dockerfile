@@ -79,6 +79,9 @@ RUN echo "deb-src http://nginx.org/packages/debian/ stretch nginx" | tee -a /etc
 #Install Nginx package using the following command
 RUN apt-get update; apt-get -y install nginx
 
+# Copy config file to nginx folder
+COPY ./nginx/conf.d/:/etc/nginx/conf.d/
+
 # Expose port 9000 and start php-fpm server
 EXPOSE 80
 CMD ["sh", "-c", "php-fpm -D && nginx -g 'daemon off;'"]
