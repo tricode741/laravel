@@ -1,20 +1,17 @@
+# STAGE 1: Build
+FROM composer as build
+
+RUN mkdir /usr/src/app
+WORKDIR /usr/src/app
+
+# clone laravel source
+RUN git clone https://github.com/laravel/laravel.git laravel-app && \
+    cd laravel-app && composer install
+
+# STAGE 2: Production Environment
 FROM php:fpm
 
-# Install composer
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
-
-# INstall GIT
-RUN apt-get update && \
-    apt-get upgrade -y && \
-    apt-get install -y git
-
-# Clone laravel src
-RUN git clone https://github.com/laravel/laravel.git
-
-RUN cd laravel && composer install
-
-# Copy composer.lock and composer.json
-COPY composer.lock composer.json /var/www/
+COPY --from=build /usr/src/app/ /var/www/
 
 # Set working directory
 WORKDIR /var/www
