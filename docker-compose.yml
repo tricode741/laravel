@@ -3,7 +3,7 @@ services:
 
   #PHP Service
   app:
-    image: lanntxyz/laravel-nginx
+    image: lanntxyz/laravel
     container_name: appserver
     restart: always
     depends_on:
