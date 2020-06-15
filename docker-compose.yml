@@ -15,6 +15,7 @@ services:
       SERVICE_NAME: app
       SERVICE_TAGS: dev
     volumes:
+      - ./app/conf/.env:/var/www/.env
       - ./php/local.ini:/usr/local/etc/php/conf.d/local.ini
       - ./nginx/conf.d/app.conf:/etc/nginx/conf.d/default.conf
     networks:
