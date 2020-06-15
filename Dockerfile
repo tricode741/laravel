@@ -1,11 +1,5 @@
 FROM php:fpm
 
-RUN git clone https://github.com/laravel/laravel.git /var/www && \
-     cd /var/www && composer install
-
-# Set working directory
-WORKDIR /var/www
-
 # Install dependencies
 RUN apt-get update && apt-get install -y \
     build-essential \
@@ -24,6 +18,14 @@ RUN apt-get update && apt-get install -y \
 
 # Clear cache
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
+
+# Clone the source code
+RUN git clone https://github.com/laravel/laravel.git /var/www && \
+     cd /var/www && composer install
+
+# Set working directory
+WORKDIR /var/www
+
 
 # Install extensions
 RUN docker-php-ext-install pdo_mysql mbstring zip exif pcntl
