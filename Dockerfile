@@ -3,6 +3,7 @@ FROM php:fpm
 
 # Clone the source code
 RUN apt-get update && apt-get install -y git && \
+    rm -rf /var/www && \
     git clone https://github.com/laravel/laravel.git /var/www
     # cd laravel && \
     # cp . /var/www
