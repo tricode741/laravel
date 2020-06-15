@@ -81,7 +81,7 @@ COPY ./nginx/conf.d/app.conf /etc/nginx/conf.d/default.conf
 #USER www
 
 # Grand permisson
-RUN chmod 755 /var/www/*
+RUN chmod -R 755 /var/www
 
 # Expose port 9000 and start php-fpm server
 EXPOSE 80
