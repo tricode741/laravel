@@ -4,7 +4,7 @@ FROM php:fpm
 # Clone the source code
 RUN apt-get update && apt-get install -y git && \
     git clone https://github.com/laravel/laravel.git && \
-    cp laravel/* /var/www/.
+    cp laravel /var/www
 
 # Install dependencies
 RUN apt-get install -y \
