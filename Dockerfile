@@ -1,17 +1,7 @@
-# STAGE 1: Build
-FROM composer as build
-
-RUN mkdir /usr/src/app
-WORKDIR /usr/src/app
-
-# clone laravel source
-RUN git clone https://github.com/laravel/laravel.git laravel-app && \
-    cd laravel-app && composer install
-
-# STAGE 2: Production Environment
 FROM php:fpm
 
-COPY --from=build /usr/src/app/laravel-app /var/www/
+RUN git clone https://github.com/laravel/laravel.git /var/www && \
+     cd /var/www && composer install
 
 # Set working directory
 WORKDIR /var/www
@@ -54,7 +44,7 @@ RUN apt-get update \
     gnupg1 \
     gnupg2
 
-#Download the Nginx repository signing key 
+#Download the Nginx repository signing key
 RUN wget http://nginx.org/keys/nginx_signing.key
 
 #Add the Nginx signing key to a system
@@ -69,16 +59,6 @@ RUN apt-get update; apt-get -y install nginx
 
 # Copy config file to nginx folder
 COPY ./nginx/conf.d/app.conf /etc/nginx/conf.d/default.conf
-
-# Add user for laravel application
-#RUN groupadd -g 1000 www
-#RUN useradd -u 1000 -ms /bin/bash -g www www
-
-# Copy existing application directory permissions
-#RUN chown -R www:www /var/www
-
-# Change current user to www
-#USER www
 
 # Grand permisson
 RUN chmod -R 777 /var/www

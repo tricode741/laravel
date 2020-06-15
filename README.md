@@ -1,3 +1,2 @@
-# laravel-base-image
-
+# laravel-nginx
 
