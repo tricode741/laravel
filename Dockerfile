@@ -21,7 +21,7 @@ RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Clone the source code
 RUN git clone https://github.com/laravel/laravel.git && \
-    cp ./laravel/. /var/www
+    cp laravel/* /var/www/.
 
 # Set working directory
 WORKDIR /var/www
